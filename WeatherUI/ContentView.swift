@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isNight = false
+    
+    
     var body: some View {
         ZStack {
-            BackgroundView(topColor: .blue, bottomColor: Color("lightBlue"))
+            BackgroundView(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray: Color("lightBlue"))
             VStack{
                 CityTextView(cityName: "Toronto, ON")
                 
-                MainWeatherStatusView(imageName: "cloud.sun.fill", temperature: 32)
+                MainWeatherStatusView(imageName: isNight ? "moon.stars.fill": "cloud.sun.fill", temperature: 32)
              
                 HStack(spacing: 20){
                     WeatherDayView(dayOfWeek:"TUE", imageName:"cloud.sun.fill", temperature:23)
@@ -31,7 +35,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button{
-                    print("tapped")
+                    isNight.toggle()
                 } label: {
                     WeatherButtonView(title: "Change Day Time", textColor: .blue, backgroundColor: .white)
                 }
